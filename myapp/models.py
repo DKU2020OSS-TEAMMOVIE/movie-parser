@@ -32,6 +32,13 @@ class Actor(Model):
     name = CharField(null=False, max_length=30)
 
 
+class MBTI(Model):
+    id = BigAutoField(primary_key=True, editable=False)
+    name = CharField(null=False, unique=True, max_length=4)
+    ## TODO: ManyToManyField 추가 데이터 입력
+    genres = ManyToManyField('Genre')
+
+
 class Movie(Model):
     """
     영화 정보입니다.

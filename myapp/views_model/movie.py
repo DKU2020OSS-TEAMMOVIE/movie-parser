@@ -13,8 +13,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 
-from ..models import MovieUserComment, Movie, Genre, UserComment
-from ..serializers.movie import MovieModelSerializer, MovieUserCommentModelSerializer, GenreModelSerializer
+from ..models import MovieUserComment, Movie, Genre, UserComment, MBTI
+from ..serializers.movie import MovieModelSerializer, MovieUserCommentModelSerializer, GenreModelSerializer, MBTIModelSerializer
 from ..serializers.user import UserMyMovieCommentResSerializer
 from ..filtersets import MovieFilter
 
@@ -35,6 +35,11 @@ class GenreModelView(ReadOnlyModelViewSet):
     # def list(self, request, *args, **kwargs):
     #     raise  NotImplementedError()
 
+
+class MBTIModelView(ReadOnlyModelViewSet):
+    queryset = MBTI.objects.all()
+    serializer_class = MBTIModelSerializer
+    lookup_field = 'name'
 
 
 class MovieModelView(ReadOnlyModelViewSet):
@@ -86,6 +91,7 @@ class MovieParsedUserCommentView(ListAPIView):
 mvRouter = DefaultRouter()
 mvRouter.register('movies', MovieModelView)
 mvRouter.register('genres', GenreModelView)
+mvRouter.register('mbtis', MBTIModelView)
 
 
 urlpatterns = [

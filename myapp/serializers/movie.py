@@ -3,7 +3,8 @@ from rest_framework.fields import CharField, IntegerField, BooleanField, Decimal
 
 from django.db.models.aggregates import Avg
 
-from ..models import Movie, MovieUserComment, Actor, Genre
+from ..models import Movie, MovieUserComment, Actor, Genre, MBTI
+
 
 class ActorModelSerializer(ModelSerializer):
     class Meta:
@@ -16,6 +17,16 @@ class GenreModelSerializer(ModelSerializer):
     class Meta:
         model = Genre
         fields = '__all__'
+
+
+class MBTIModelSerializer(ModelSerializer):
+
+    genres = GenreModelSerializer(many=True)
+
+    class Meta:
+        model = MBTI
+        fields = '__all__'
+
 
 
 class MovieModelSerializer(ModelSerializer):
